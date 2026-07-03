@@ -62,6 +62,8 @@
   .status-msg{font-size:12.5px;padding:8px 12px;border-radius:8px;margin-top:8px;display:none;}
   .status-msg.ok{display:block;background:var(--mint);color:var(--mint-ink);}
   .status-msg.err{display:block;background:var(--rose);color:#fff;}
+
+  /* 미리보기 테이블 */
   table.preview{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:12px;}
   table.preview th{text-align:left;padding:6px 8px;background:#EEF2FC;color:var(--ink-muted);font-size:11px;position:sticky;top:0;}
   table.preview td{padding:6px 8px;border-bottom:1px solid var(--border-soft);vertical-align:top;}
@@ -71,6 +73,15 @@
   .tag-mini{background:var(--lavender);color:#5B4BAE;border-radius:999px;padding:1px 7px;font-size:10.5px;margin:1px;display:inline-block;}
   .count-badge{background:var(--butter);color:#7A5A00;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;}
   .codebox{width:100%;min-height:220px;font-family:ui-monospace,Menlo,monospace;font-size:12px;border-radius:8px;border:1px solid var(--border-soft);padding:12px;background:#2B2F52;color:#E4E8FF;}
+
+  /* 드래그 핸들 */
+  .drag-handle{
+    cursor:grab;color:#B9C4EE;font-size:14px;padding:0 4px;
+    user-select:none;line-height:1;
+  }
+  .drag-handle:active{cursor:grabbing;}
+  tr.dragging{opacity:0.4;}
+  tr.drag-over td{border-top:2px solid var(--sky-mid);}
 </style>
 </head>
 <body>
@@ -118,10 +129,15 @@
 
   <div class="card">
     <h2>지금까지 모은 항목 <span class="count-badge" id="countBadge">0개</span></h2>
-    <p class="hint">틀린 항목은 오른쪽 삭제 버튼으로 지우고 다시 추가하시면 돼요.</p>
+    <p class="hint">왼쪽 ≡ 핸들을 드래그해서 순서를 바꿀 수 있어요. 삭제 버튼으로 항목을 지울 수도 있어요.</p>
     <div class="preview-scroll">
       <table class="preview">
-        <thead><tr id="previewHead"></tr></thead>
+        <thead>
+          <tr>
+            <th style="width:28px;"></th>
+            <th>제목</th><th>시스템</th><th>인원</th><th>태그</th><th>시나리오 설명</th><th>삭제</th>
+          </tr>
+        </thead>
         <tbody id="previewBody"></tbody>
       </table>
     </div>
@@ -156,8 +172,9 @@
 const $ = id => document.getElementById(id);
 
 let items = [];
-const PREVIEW_COLS = ['제목', '시스템', '인원', '태그', '시나리오 설명', '삭제'];
+let dragSrcIdx = null;
 
+/* ---------- 모드 탭 ---------- */
 document.querySelectorAll('.mode-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
@@ -167,6 +184,7 @@ document.querySelectorAll('.mode-tab').forEach(btn => {
   });
 });
 
+/* ---------- 유틸 ---------- */
 function parseTags(str){ return str.split(',').map(t => t.trim()).filter(Boolean); }
 function showStatus(el, msg, ok){
   el.textContent = msg;
@@ -174,6 +192,7 @@ function showStatus(el, msg, ok){
   setTimeout(() => { el.className = 'status-msg'; }, 3000);
 }
 
+/* ---------- 일괄 붙여넣기 ---------- */
 $('parseBulkBtn').addEventListener('click', () => {
   const raw = $('bulkInput').value.trim();
   if(!raw){ showStatus($('bulkStatus'), '붙여넣을 내용이 없어요.', false); return; }
@@ -200,6 +219,7 @@ $('parseBulkBtn').addEventListener('click', () => {
 
 $('clearBulkBtn').addEventListener('click', () => { $('bulkInput').value = ''; });
 
+/* ---------- 개별 입력 ---------- */
 $('addSingleBtn').addEventListener('click', () => {
   const title = $('t_title').value.trim();
   if(!title){ showStatus($('singleStatus'), '제목은 필수예요.', false); return; }
@@ -215,13 +235,16 @@ $('addSingleBtn').addEventListener('click', () => {
   showStatus($('singleStatus'), '목록에 추가했어요.', true);
 });
 
+/* ---------- 미리보기 렌더 + 드래그앤드롭 ---------- */
 function renderPreview(){
   $('countBadge').textContent = items.length + '개';
-  $('previewHead').innerHTML = PREVIEW_COLS.map(c => `<th>${c}</th>`).join('');
-  $('previewBody').innerHTML = items.map((it, idx) => {
+  const tbody = $('previewBody');
+
+  tbody.innerHTML = items.map((it, idx) => {
     const tagsHtml = it.tags.map(t => `<span class="tag-mini">${t}</span>`).join('');
     const shortDesc = it.memo ? (it.memo.length > 30 ? it.memo.slice(0, 30) + '...' : it.memo) : '';
-    return `<tr>
+    return `<tr draggable="true" data-idx="${idx}">
+      <td><span class="drag-handle" title="드래그해서 순서 변경">&#8801;</span></td>
       <td>${it.title}</td>
       <td>${it.category}</td>
       <td>${it.playerCount}</td>
@@ -230,7 +253,37 @@ function renderPreview(){
       <td><button class="del-btn" data-idx="${idx}">삭제</button></td>
     </tr>`;
   }).join('');
-  document.querySelectorAll('.del-btn').forEach(b => {
+
+  /* 드래그 이벤트 */
+  tbody.querySelectorAll('tr[draggable]').forEach(tr => {
+    tr.addEventListener('dragstart', e => {
+      dragSrcIdx = Number(tr.dataset.idx);
+      tr.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    tr.addEventListener('dragend', () => {
+      tr.classList.remove('dragging');
+      tbody.querySelectorAll('tr').forEach(r => r.classList.remove('drag-over'));
+    });
+    tr.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      tbody.querySelectorAll('tr').forEach(r => r.classList.remove('drag-over'));
+      tr.classList.add('drag-over');
+    });
+    tr.addEventListener('drop', e => {
+      e.preventDefault();
+      const targetIdx = Number(tr.dataset.idx);
+      if(dragSrcIdx === null || dragSrcIdx === targetIdx) return;
+      const moved = items.splice(dragSrcIdx, 1)[0];
+      items.splice(targetIdx, 0, moved);
+      dragSrcIdx = null;
+      renderPreview();
+    });
+  });
+
+  /* 삭제 버튼 */
+  tbody.querySelectorAll('.del-btn').forEach(b => {
     b.addEventListener('click', () => {
       items.splice(Number(b.dataset.idx), 1);
       renderPreview();
@@ -239,6 +292,7 @@ function renderPreview(){
 }
 renderPreview();
 
+/* ---------- JSON 저장/불러오기 ---------- */
 $('saveJsonBtn').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(items, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -272,6 +326,7 @@ $('resetAllBtn').addEventListener('click', () => {
   }
 });
 
+/* ---------- 코드 생성 ---------- */
 function jsStr(v){ return JSON.stringify(v ?? ''); }
 
 function buildCode(){
