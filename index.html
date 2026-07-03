@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 서재</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-deco" id="bgDeco"></div>
+
+<div class="desktop">
+
+  <!-- 최상단 탭: 팬픽 / TRPG 전환 + (TRPG 전용) 알뇌·몰뇌 서브탭 -->
+  <div class="tabs-row">
+    <div class="type-tabs">
+      <button class="type-tab active" data-type="fanfic">📖 팬픽</button>
+      <button class="type-tab" data-type="trpg">🎲 TRPG 시나리오</button>
+    </div>
+    <div class="sub-tabs" id="subTabs">
+      <button class="sub-tab active" data-spoiler="all">전체</button>
+      <button class="sub-tab" data-spoiler="known">🧠 알뇌</button>
+      <button class="sub-tab" data-spoiler="blind">🙈 몰뇌</button>
+    </div>
+  </div>
+
+  <!-- 브랜드 창 -->
+  <div class="window browser-window">
+    <div class="titlebar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="titlebar-label" id="windowTitle">내 팬픽 서재.exe</div>
+      <div class="titlebar-icons">─ □ ✕</div>
+    </div>
+    <div class="addressbar">
+      🔖 <span class="pill" id="addressBar">local://fanfic-library/index.html</span>
+    </div>
+    <div class="brand-body">
+      <div>
+        <p class="brand-title" id="brandTitle">내 팬픽 서재</p>
+        <p class="brand-sub" id="brandSub">읽은 글을 잊기 전에, 태그로 빠르게 다시 찾기 위한 곳</p>
+      </div>
+      <div class="stat-chip">총 <b id="statTotal">0</b>개 저장됨</div>
+    </div>
+  </div>
+
+  <!-- 필터 패널 -->
+  <div class="window panel-window">
+    <div class="titlebar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="titlebar-label">filter.exe</div>
+      <div class="titlebar-icons">─ □ ✕</div>
+    </div>
+    <div class="panel-body">
+
+      <div class="panel-row">
+        <div class="search-box">
+          🔍 <input type="text" id="searchInput" placeholder="제목으로 검색...">
+        </div>
+        <span class="field-label">정렬</span>
+        <select id="sortSelect">
+          <option value="recent">최근 추가순</option>
+          <option value="rating-desc">평점 높은순</option>
+          <option value="rating-asc">평점 낮은순</option>
+          <option value="title">제목 가나다순</option>
+          <option value="metric-desc" id="sortMetricOpt">진행분량 많은순</option>
+        </select>
+        <span class="field-label">상태</span>
+        <div class="status-toggle" id="statusToggle">
+          <button data-status="all" class="active">전체</button>
+          <button data-status="done" id="statusDoneBtn">완결</button>
+          <button data-status="ongoing" id="statusOngoingBtn">연재중</button>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="field-label">최소 평점</span>
+        <div class="rating-filter" id="ratingFilter">
+          <button data-star="1">★</button>
+          <button data-star="2">★</button>
+          <button data-star="3">★</button>
+          <button data-star="4">★</button>
+          <button data-star="5">★</button>
+        </div>
+        <button class="clear-filters" id="clearFilters">필터 초기화</button>
+      </div>
+
+      <div class="panel-row">
+        <span class="field-label" style="margin-top:6px;">태그<br><span style="font-weight:400;color:#AAB3DD;">1번=포함<br>2번=제외</span></span>
+        <div class="tag-cloud" id="tagCloud"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 목록 창 -->
+  <div class="window list-window">
+    <div class="titlebar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="titlebar-label">list_view.exe</div>
+      <div class="titlebar-icons">─ □ ✕</div>
+    </div>
+    <div class="list-toolbar">
+      <span id="resultCount">0개 중 0–0 표시</span>
+      <span>행을 클릭하면 메모가 펼쳐져요 · 바로가기 버튼은 별도예요</span>
+    </div>
+    <div class="list-scroll">
+      <table>
+        <thead>
+          <tr id="theadRow">
+            <th class="col-link">−</th>
+            <th data-key="rating">평점 <span class="arrow"></span></th>
+            <th data-key="title">제목 <span class="arrow"></span></th>
+            <th data-key="category" class="col-cat" id="thCategory">장르 <span class="arrow"></span></th>
+            <th data-key="extra" class="col-extra" id="thExtra" style="display:none;">인원 <span class="arrow"></span></th>
+            <th data-key="metric" class="col-metric" id="thMetric">챕터 <span class="arrow"></span></th>
+            <th data-key="completed" id="thStatus">상태 <span class="arrow"></span></th>
+            <th class="col-spoiler" id="thSpoiler" style="display:none;">🧠/🙈</th>
+            <th>태그</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <span class="big">🗂️</span>
+        조건에 맞는 항목이 없어요.<br>필터를 조금 풀어볼까요?
+      </div>
+    </div>
+    <div class="pagination-bar">
+      <div class="page-size">
+        페이지당
+        <select id="pageSizeSelect">
+          <option value="30">30개</option>
+          <option value="50" selected>50개</option>
+          <option value="100">100개</option>
+          <option value="200">200개</option>
+        </select>
+      </div>
+      <div class="page-nav" id="pageNav"></div>
+    </div>
+  </div>
+
+  <!-- 작업표시줄 -->
+  <div class="taskbar">
+    <span class="start" id="taskbarStart">시작</span>
+    <span class="heart">♡</span>
+    <div class="fill"></div>
+    <span id="taskbarCount">표시 중 0 / 총 0개</span>
+    <span class="clock" id="clock">11:11</span>
+  </div>
+
+</div>
+
+<!-- 실제 데이터: 이 파일에만 항목을 추가하시면 됩니다 -->
+<script src="js/data.js"></script>
+
+<!-- 앱 로직: 평소엔 건드리실 필요 없어요 -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
 
