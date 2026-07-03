@@ -7,10 +7,10 @@ const TRPG = TRPG_CURATED.concat(typeof DUMMY_TRPG !== 'undefined' ? DUMMY_TRPG 
 
 /* ================= 설정 ================= */
 const CONFIG = {
-  windowTitle: "내 TRPG 시나리오 서고.exe",
+  windowTitle: "시나리오 서고.exe",
   address: "local://trpg-library/index.html",
-  brandTitle: "내 TRPG 시나리오 서고",
-  brandSub: "플레이한(할) 시나리오를 시스템과 태그로 빠르게 찾기 위한 곳",
+  brandTitle: "시나리오 서고",
+  brandSub: "저는 좋아하는 캐릭터한테는 송충이 줄 겁니다",
   data: TRPG
 };
 
@@ -184,7 +184,6 @@ function render(){
   }
   empty.style.display = "none";
 
-  // 컬럼 수: 제목 + 시스템 + 인원 + 태그 = 4
   const colspan = 4;
 
   tbody.innerHTML = pageItems.map((f) => {
