@@ -150,7 +150,7 @@ td{padding:11px 10px;vertical-align:middle;}
 
 .col-title{font-weight:700;color:var(--ink);min-width:150px;}
 .col-cat,.col-extra{color:var(--ink-muted);white-space:nowrap;}
-.col-tags{display:flex;flex-wrap:wrap;gap:4px;max-width:220px;}
+.col-tags{display:flex;flex-wrap:wrap;gap:4px;max-width:400px;}
 .mini-tag{background:var(--lavender);color:#5B4BAE;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;}
 
 .memo-row td{
