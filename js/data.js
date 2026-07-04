@@ -1,206 +1,121 @@
-/* ============================================================
-   실제 데이터는 이 파일에만 넣으시면 됩니다.
-   css나 다른 js 파일은 건드리실 필요 없어요.
-
-   태그(tags)는 여기 적은 그대로 필터 패널의 태그 목록에
-   자동으로 나타납니다. 태그를 어디 따로 등록할 필요 없어요.
-
-   [팬픽 FICS_CURATED]
-     completed        : 완결 여부 (true/false)
-     metricCurrent     : 현재까지의 챕터 수
-     metricTotal       : 전체 챕터 수. 아직 모르면 null
-     rating            : 1~5 (아직 안 매겼으면 0)
-     link              : 원문 링크
-     memo              : 자유 텍스트
-
-   [TRPG TRPG_CURATED]
-     completed        : 보유 여부 (true=보유중, false=위시)
-     playerCount        : 자유 텍스트, 예: "3~4인"
-     playtime          : 자유 텍스트, 예: "3~4시간" (라이터가 적어둔 추정 소요시간)
-     spoiler           : "known"(알뇌: 내용을 이미 알고 있음) 또는 "blind"(몰뇌: 아직 모름)
-     rating            : 1~5 (아직 안 매겼으면 0)
-     link              : 원문/구매 링크
-     memo              : 자유 텍스트
-============================================================ */
-
-const FICS_CURATED = [
-  {
-    title: "밤의 온실",
-    category: "로맨스",
-    rating: 5,
-    metricCurrent: 24,
-    metricTotal: 24,
-    completed: true,
-    tags: ["설아×리안", "재회", "힐링", "현대물"],
-    link: "https://example.com/fic/1",
-    memo: "재회물 중 최애. 3장 온실 장면에서 울었음. 재독 확정."
-  },
-  {
-    title: "유리구두는 신지 않아",
-    category: "판타지",
-    rating: 4,
-    metricCurrent: 8,
-    metricTotal: null,
-    completed: false,
-    tags: ["노아×유진", "시대극", "짝사랑", "느린전개"],
-    link: "https://example.com/fic/2",
-    memo: "연재 속도 느린데 문체가 좋아서 기다리는 중."
-  },
-  {
-    title: "우리 반 부회장",
-    category: "학원물",
-    rating: 4,
-    metricCurrent: 32,
-    metricTotal: 32,
-    completed: true,
-    tags: ["다온×시우", "학원물", "티키타카", "완결보장"],
-    link: "https://example.com/fic/3",
-    memo: "가볍게 읽기 좋음. 개그 코드 잘 맞았음."
-  },
-  {
-    title: "겨울의 끝에서 만나요",
-    category: "로맨스",
-    rating: 5,
-    metricCurrent: 41,
-    metricTotal: 41,
-    completed: true,
-    tags: ["설아×리안", "오해", "재회", "새드엔딩주의"],
-    link: "https://example.com/fic/4",
-    memo: "결말 호불호 갈릴 듯. 나는 좋았음. 눈물주의."
-  },
-  {
-    title: "아무도 모르게",
-    category: "스릴러",
-    rating: 3,
-    metricCurrent: 15,
-    metricTotal: 20,
-    completed: false,
-    tags: ["도경×하람", "현대물", "떡밥회수"],
-    link: "https://example.com/fic/5",
-    memo: "떡밥은 흥미로운데 전개가 조금 늘어짐."
-  },
-  {
-    title: "여름, 파도, 너",
-    category: "로맨스",
-    rating: 4,
-    metricCurrent: 12,
-    metricTotal: 12,
-    completed: true,
-    tags: ["다온×시우", "힐링", "여행물"],
-    link: "https://example.com/fic/6",
-    memo: "짧고 상큼한 힐링물. 여름에 다시 읽기 좋음."
-  },
-  {
-    title: "붉은 실",
-    category: "판타지",
-    rating: 5,
-    metricCurrent: 55,
-    metricTotal: 55,
-    completed: true,
-    tags: ["노아×유진", "시대극", "적대관계", "느린전개"],
-    link: "https://example.com/fic/7",
-    memo: "장편인데 지루한 구간이 없었음. 세계관 최고."
-  },
-  {
-    title: "달의 뒷면",
-    category: "판타지",
-    rating: 4,
-    metricCurrent: 19,
-    metricTotal: null,
-    completed: false,
-    tags: ["설아×리안", "적대관계", "떡밥회수"],
-    link: "https://example.com/fic/9",
-    memo: "떡밥 쌓는 중. 완결까지 지켜볼 예정."
-  },
-  {
-    title: "새벽의 항구",
-    category: "드라마",
-    rating: 5,
-    metricCurrent: 33,
-    metricTotal: 33,
-    completed: true,
-    tags: ["도경×하람", "재회", "새드엔딩주의", "여행물"],
-    link: "https://example.com/fic/11",
-    memo: "올해 읽은 것 중 최고. 문장 하나하나 다 좋았음."
-  }
-
-  // ↓ 이 아래에 계속 { ... }, 로 추가하시면 됩니다.
-];
-
 const TRPG_CURATED = [
   {
-    title: "항구도시의 실종자들",
-    category: "크툴루",
-    rating: 5,
-    playerCount: "3~4인",
-    playtime: "3~4시간",
-    completed: true,
-    spoiler: "known",
-    tags: ["원샷", "공포", "초보자용"],
-    link: "https://example.com/trpg/1",
-    memo: "GM으로 두 번 돌렸음. 입문용으로 최고. 분위기 잡는 게 관건."
+    title: "12시의 도밍게즈 (확장판)",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계", "판타지", "이능력", "캠페인"],
+    memo: "창백한 블루베리\n치명적인 벨라돈나\n최후의 경례"
   },
   {
-    title: "붉은 저택의 초대장",
-    category: "인세인",
-    rating: 4,
-    playerCount: "4~5인",
-    playtime: "4시간 이상",
-    completed: true,
-    spoiler: "known",
-    tags: ["캠페인", "미스터리", "눈물주의"],
-    link: "https://example.com/trpg/2",
-    memo: "엔딩 파트에서 다들 울었음. 롤플레이 비중 높음."
+    title: "946",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["로맨스", "소중한관계", "호러", "아포칼립스"],
+    memo: "스태그필드 스쿨 기숙사 학칙 제9항\n성스러울지어다\n마이 리틀 바스타드"
   },
   {
-    title: "폐교의 시간표",
-    category: "던전앤드래곤",
-    rating: 3,
-    playerCount: "4인",
-    playtime: "세션당 3시간",
-    completed: true,
-    spoiler: "blind",
-    tags: ["캠페인", "고난이도"],
-    link: "https://example.com/trpg/3",
-    memo: "플레이어로 참여 예정. 아직 내용 모르는 채로 대기."
+    title: "매직후룸라이드",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["로맨틱코미디", "판타지", "호러", "캠페인"],
+    memo: "1부 저 맛없어요\n2부 저희 사장님 이상해요\n3부 나는 퇴사한다"
   },
   {
-    title: "마지막 손님",
-    category: "기타 시스템",
-    rating: 5,
-    playerCount: "4인",
-    playtime: "1시간 내외",
-    completed: true,
-    spoiler: "known",
-    tags: ["원샷", "코미디", "4인용"],
-    link: "https://example.com/trpg/4",
-    memo: "짧은데 임팩트 있음. 뒤풀이 술자리에서도 이 얘기함."
+    title: "사룡장락",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["홍콩느와르", "폭력", "캠페인"],
+    memo: "사룡장락 1\n사룡장락 2\n사룡장락: 외전"
   },
   {
-    title: "안개 속의 등대지기",
-    category: "크툴루",
-    rating: 4,
-    playerCount: "2인",
-    playtime: "2시간 내외",
-    completed: true,
-    spoiler: "known",
-    tags: ["원샷", "공포", "2인용"],
-    link: "https://example.com/trpg/5",
-    memo: "2인 플레이 전용치곤 밀도 높음. 다시 돌리고 싶음."
+    title: "서천서역관리국",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["한국신화", "퇴마물", "캠페인"],
+    memo: "레디메이드 우울\n죽기 위해 태어난 것\n큐피드의 한숨"
   },
   {
-    title: "백야의 초대",
-    category: "이문영 시나리오",
-    rating: 0,
-    playerCount: "3~5인",
-    playtime: "미상",
-    completed: false,
-    spoiler: "blind",
-    tags: ["위시리스트", "미스터리"],
-    link: "https://example.com/trpg/6",
-    memo: "평이 좋아서 담아둠. 인원 모이면 바로 구매 예정."
+    title: "시공간 우로보로스",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["초면", "시대물", "힐링", "우주"],
+    memo: "자정의 종소리\n한여름밤의 꿈\n화성에서 너에게 보내는 편지"
+  },
+  {
+    title: "클리셰 SF세계관의 크리쳐는 그어그어하고 울지 않는다",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계", "SF", "아포칼립스", "캠페인"],
+    memo: "CREA-GRRR 1\nCREA-GRRR 2\nCREA-GRRR The Final Round"
+  },
+  {
+    title: "클리셰 SF세계관의 크리쳐는 그어그어하고 울지 않는다 (확장판)",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계", "SF", "캠페인"],
+    memo: "크리그어 제로\n괴물예찬론\n괴물묵시록"
+  },
+  {
+    title: "적의 세계",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계", "아포칼립스"],
+    memo: "이사하기 좋은 날\n캠핑하기 좋은 날\n저택의 밤은 그림자가 없다\n적의 탄생"
+  },
+  {
+    title: "종말설화집",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["로맨스", "판타지", "서양풍", "동양풍", "루프물", "캠페인"],
+    memo: "심장이 얼어붙은 용 이야기\n불신하는 괴물가족"
+  },
+  {
+    title: "창세설화집",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["로맨스", "판타지", "시대물", "SF", "캠페인"],
+    memo: "하렘의 탈출구는 죽음뿐이기에\n문 너머에는 무엇이 있는가?"
+  },
+  {
+    title: "팬텀 블루 미스트 (확장판)",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계", "괴도물", "캠페인"],
+    memo: "과거를 훔치는 괴도\n미래를 훔치는 괴도\n죽음을 훔치는 괴도"
+  },
+  {
+    title: "현대예술론",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["종교", "호러", "신체훼손", "캠페인"],
+    memo: "Don't Stop the Move\nJust Ablution\nVirtual Apocalypse"
+  },
+  {
+    title: "Casino Romance",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["도박", "형사물"],
+    memo: "로열 스트레이트 플러쉬\n비기너즈 럭\n카지노 로맨스"
+  },
+  {
+    title: "FRIDAY FIRST CLASS",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["소중한관계"],
+    memo: "삿포로가 당신을 부를 때\n절반\n있는 그대로 베네치아\n우유니 사막에서 다시 한번\n사랑에 빠진 브로드웨이"
+  },
+  {
+    title: "REASONING BALLADE",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["추리물", "시대물", "캠페인"],
+    memo: "미스터 레드햇 살인사건\n블랙우드 대극장 살인사건\n최종장! 블루문 대테러 사건"
+  },
+  {
+    title: "Romantic Spy",
+    category: "크툴루의 부름",
+    playerCount: "타이만",
+    tags: ["로맨스", "느와르", "캠페인"],
+    memo: "EP.01 Double Target\nEP.02 Hunting Season\nEP.03 First Shot"
   }
-
-  // ↓ 이 아래에 계속 { ... }, 로 추가하시면 됩니다.
 ];
-
