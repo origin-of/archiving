@@ -112,7 +112,7 @@ select{
 
 .tag-cloud{display:flex;gap:7px;flex-wrap:wrap;}
 .tag-chip{
-  border:1.5px solid #c4d3e3;background:#d9e3ee;color:#f3dbe9;
+  border:1.5px solid var(--border-soft);background:#F2F5FD;color:var(--ink-muted);
   border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;
   user-select:none;transition:all .12s ease;display:inline-flex;align-items:center;gap:4px;
 }
@@ -151,8 +151,10 @@ td{padding:11px 10px;vertical-align:middle;}
 .col-title{font-weight:700;color:var(--ink);min-width:150px;}
 .col-cat,.col-extra{color:var(--ink-muted);white-space:nowrap;}
 .col-tags{display:flex;flex-wrap:wrap;gap:4px;max-width:400px;}
-.mini-tag{background:var(--lavender);color:#5B4BAE;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;}
-
+.mini-tag{
+  background:#d9e3ee;color:#465375;font-size:11px;font-weight:600;
+  padding:2px 8px;border-radius:999px;white-space:nowrap;
+}
 .memo-row td{
   background:#F7F8FE;padding:12px 18px 16px 24px;font-size:13px;color:var(--ink);
   line-height:1.6;border-bottom:1px solid var(--border-soft);
