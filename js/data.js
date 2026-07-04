@@ -119,4 +119,3 @@ const TRPG_CURATED = [
     memo: "EP.01 Double Target\nEP.02 Hunting Season\nEP.03 First Shot"
   }
 ];
-
