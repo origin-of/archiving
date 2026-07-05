@@ -227,7 +227,7 @@ const TRPG_CURATED = [
     title: "서천서역관리국",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["한국신화", "퇴마물", "캠페인"],
+    tags: ["퇴마물", "캠페인"],
     memo: "레디메이드 우울\n죽기 위해 태어난 것\n큐피드의 한숨"
   },
   {
@@ -248,7 +248,7 @@ const TRPG_CURATED = [
     title: "수중단맛",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["소중한관계", "수중", "아포칼립스", "캠페인"],
+    tags: ["소중한관계", "아포칼립스", "캠페인"],
     memo: "MARING SNOW BALL\nDEEP ABYSS BRINICLE\nUNDERWATER SWEETNESS"
   },
   {
@@ -269,14 +269,14 @@ const TRPG_CURATED = [
     title: "시공간 우로보로스",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["초면", "시대물", "힐링", "우주"],
+    tags: ["초면", "시대물"],
     memo: "자정의 종소리\n한여름밤의 꿈\n화성에서 너에게 보내는 편지"
   },
   {
     title: "시공의 랑데뷰",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["설정고정"],
+    tags: [],
     memo: "Blooming Divertissement\nVenomous Banquet\n라스베가스의 개망나니들\n전뇌요람\n아쿠아리움의 신부\n다면적 세계 종말론"
   },
   {
@@ -367,14 +367,14 @@ const TRPG_CURATED = [
     title: "유리행성이 담은 우주",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["초면", "근미래", "캠페인"],
+    tags: ["초면", "캠페인"],
     memo: "이데아의 유리행성\n므네모시네 강변의 붉은 꽃"
   },
   {
     title: "은하선 랑데부",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["초면", "근미래"],
+    tags: ["초면"],
     memo: "은하선 랑데부"
   },
   {
@@ -535,7 +535,7 @@ const TRPG_CURATED = [
     title: "하계비망록",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["확정로스트", "캠페인"],
+    tags: ["캠페인"],
     memo: "42°C 의 여름은 꿈을 꾼다\n우리는 열대야의 끝을 알기에\n여름의 비망록은 햇살 위에 쓰자"
   },
   {
@@ -612,7 +612,7 @@ const TRPG_CURATED = [
     title: "Highway Pathfinder",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["SF", "시간여행", "캠페인"],
+    tags: ["SF", "캠페인"],
     memo: "하이웨이 패스파인더\n스윙바이 패스파인더\n패스파인더 마그네타"
   },
   {
@@ -668,7 +668,7 @@ const TRPG_CURATED = [
     title: "Pale Blue CLICHE",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["소중한관계", "외전"],
+    tags: ["소중한관계"],
     memo: "최강의 클리셰! 데우스 SF 마키나\n비 오는 수요일에\n폴리스 블루 미스트! ~VS 명탐정~"
   },
   {
@@ -682,7 +682,7 @@ const TRPG_CURATED = [
     title: "PLUTO",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["연령변화"],
+    tags: [],
     memo: "PLUTO"
   },
   {
@@ -696,7 +696,7 @@ const TRPG_CURATED = [
     title: "Rusted Salvation",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["소중한관계", "신체훼손", "질병", "아포칼립스", "캠페인"],
+    tags: ["소중한관계", "신체훼손", "아포칼립스", "캠페인"],
     memo: "다만 악에서 구하소서\n어찌 나를 버리셨나이까\n하얀 기침이 터져 나올 때\n검은 포말이 흩어지던 밤"
   },
   {
@@ -731,7 +731,7 @@ const TRPG_CURATED = [
     title: "Virgin White",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["애증", "짝사랑"],
+    tags: [],
     memo: "Virgin White"
   },
   {
@@ -745,7 +745,7 @@ const TRPG_CURATED = [
     title: "VAMPYR CAMPAIGN",
     category: "크툴루의 부름",
     playerCount: "타이만",
-    tags: ["뱀파이어", "활극", "캠페인"],
+    tags: ["뱀파이어", "캠페인"],
     memo: "VAMPYR UNDERGROUND\nVAMPYR OVERLOAD\nVAMPYR FALLING DAWN\n피맛첵스는 좋아하세요"
   },
   {
@@ -780,7 +780,7 @@ const TRPG_CURATED = [
     title: "갈라테이아 내게 입 맞춘다면",
     category: "크툴루의 부름",
     playerCount: "타이만, 다인",
-    tags: ["소중한관계", "탈출"],
+    tags: ["소중한관계"],
     memo: "작두\n갈라테이아 내게 입 맞춘다면\n경극 위 살인사건\n진주 귀걸이를 한 소녀의 방"
   },
   {
@@ -808,7 +808,7 @@ const TRPG_CURATED = [
     title: "일 드 네쥬",
     category: "크툴루의 부름",
     playerCount: "다인",
-    tags: ["학원물", "마녀", "캠페인"],
+    tags: ["학원물", "캠페인"],
     memo: "코델리아의 동화\n마녀회\n유령은 꿈꾸지 않는다\n맞거울에 비친 진홍색 눈은\n눈의 녹는점"
   },
   {
@@ -871,7 +871,7 @@ const TRPG_CURATED = [
     title: "적요일지",
     category: "인세인",
     playerCount: "1인, 2인, 4인",
-    tags: ["소중한관계", "SF", "배틀로얄"],
+    tags: ["소중한관계", "SF"],
     memo: "사르가소의 유령\n그랜드 피날레\n서울묵시록"
   },
   {
@@ -885,7 +885,7 @@ const TRPG_CURATED = [
     title: "지옥불반도",
     category: "인세인",
     playerCount: "2인, 3인, 4인",
-    tags: ["한국배경"],
+    tags: [],
     memo: "검은 날개의 악마\n백일장의 추억\n한가위만 같아라\n학교 7대 괴담의 발생과 전승 과정"
   },
   {
@@ -990,7 +990,7 @@ const TRPG_CURATED = [
     title: "나비박제",
     category: "마기카로기아",
     playerCount: "1인, 3인",
-    tags: ["고어", "전투"],
+    tags: ["고어"],
     memo: "나비 박제\n몽환에 잠긴 그대에게\n위스테리아의 눈꽃\n거울나라 전쟁!"
   },
   {
